@@ -1,5 +1,5 @@
 import { ID } from "src/user/user.dto";
-import { HotelRoom } from "./hotel-room.schema";
+import { HotelRoom } from "../hotel-room/hotel-room.schema";
 import { Hotel } from "./hotel.schema";
 
 export interface IHotelService {
@@ -15,7 +15,7 @@ export interface SearchRoomsParams {
     isEnabled?: true;
 }
 
-export interface HotelRoomService {
+export interface IHotelRoomService {
     create(data: Partial<HotelRoom>): Promise<HotelRoom>;
     findById(id: ID, isEnabled?: true): Promise<HotelRoom>;
     search(params: SearchRoomsParams): Promise<HotelRoom[]>;
