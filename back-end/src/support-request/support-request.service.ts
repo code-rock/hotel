@@ -6,7 +6,7 @@ import { SupportRequest, TSupportRequestDocument } from "./support-request.schem
 
 // Оповещения должны быть реализованы через механизм EventEmitter.
 @Injectable()
-export class SupportRequestService implements ISupportRequestService {
+export class SupportRequestService { // implements ISupportRequestService
     constructor(@InjectModel(SupportRequest.name) private supportRequestModel: Model<TSupportRequestDocument>) {}
     
     findSupportRequests(params) {

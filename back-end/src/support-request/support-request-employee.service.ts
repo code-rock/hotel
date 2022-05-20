@@ -9,7 +9,7 @@ import { SupportRequest, TSupportRequestDocument } from "./support-request.schem
 // Метод ISupportRequestEmployeeService.closeRequest должен менять флаг isActive на false.
 // Оповещения должны быть реализованы через механизм EventEmitter.
 @Injectable()
-export class SupportRequestEmployee implements ISupportRequestEmployeeService {
+export class SupportRequestEmployeeService { //implements ISupportRequestEmployeeService
     constructor(@InjectModel(SupportRequest.name) private supportRequestModel: Model<TSupportRequestDocument>) {}
     
     markMessagesAsRead(params) {

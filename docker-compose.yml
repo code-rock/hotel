@@ -1,0 +1,37 @@
+version: "3.3"
+
+volumes:
+  mongodb_volume:
+
+services:
+  nestjs:
+    build: 
+      context: back-end
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - MONGO_DB_ADDR=mongodb
+      - PORT=8080
+    ports:
+      - 8080:8080  
+  # nextjs:
+  #   build: 
+  #     context: front-end
+  #     dockerfile: Dockerfile
+  #   restart: always   
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./front-end:/app
+  #     - /app/node_modules
+  #     - /app/.next
+  #   env_file:
+  #     - .env
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongodb_volume:/data/db
+    restart: always    
+    ports:
+      - 27018:27018
+    command: mongod --port 27018 --bind_ip_all  
