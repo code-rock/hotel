@@ -1,17 +1,21 @@
-FROM node:16.13
+# Base on offical Node.js Alpine image
+FROM node:alpine
 
-# Create app directory
-RUN mkdir -p /app
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/app
 
-# Installing dependencies
-COPY package*.json /app/
+COPY package.json ./
+RUN npm install
+COPY . .
 
-RUN cd /app/ && npm install
-COPY . /app
+# Build app
+RUN npm run build
 
-# Building app
-RUN cd /app/ && npm run build
+EXPOSE 3000
 
-# Running the app
-CMD "npm" "run" "dev"
+# Run container as non-root (unprivileged) user
+# The node user is provided in the Node.js Alpine base image
+USER node
+
+# Run npm start script when container starts
+CMD [ "npm", "start" ]
