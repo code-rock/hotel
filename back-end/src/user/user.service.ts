@@ -22,14 +22,7 @@ export class UserService implements IUserService {
     }
 
     findAll(params) {
-        return this.userModel.find().find({}, null, {
-            limit: params.limit,
-            skip: params.offset,
-            sort: {
-                name: params.name,
-                email: params.email,
-                contactPhone: params.contactPhone
-            }
-        }).exec();
+        const { limit, offset, ...rest} = params;
+        return this.userModel.find(rest, null, { limit, skip: offset || null }).exec();
     }
 }

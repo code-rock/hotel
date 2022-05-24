@@ -23,8 +23,15 @@ export class HotelService implements IHotelService {
     }
 
     search(params) {
-        return this.hotelModel.find({}, null, {
-            sort: { params }
-        }).exec();
+        const { limit, skip, ...rest } = params;
+        return this.hotelModel.find(rest, null, { limit, skip }).exec();
+    }
+
+    update(id, info) {
+        return this.hotelModel.findByIdAndUpdate(id, info, {
+            new: true,
+            runValidators: true,
+            context: 'query'
+        });
     }
 }

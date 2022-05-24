@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { ERole } from "./role/role.enum";
 import { User } from "./user.schema";
 
 export type ID = string | ObjectId;
@@ -31,4 +32,12 @@ export interface IUsers {
     email: string;
     name: string;
     contactPhone: string;
+}
+
+export interface ICreateUser {
+    email: string;
+    name: string;
+    contactPhone: string;
+    role: ERole;
+    password: string;
 }

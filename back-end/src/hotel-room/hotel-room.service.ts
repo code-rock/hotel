@@ -20,14 +20,8 @@ export class HotelRoomService implements HotelRoomService {
     }
 
     search(params) {
-        return this.hotelRoomModel.find({}, null, {
-            limit: params.limit,
-            skip: params.offset,
-            sort: { 
-                isEnabled: true,
-                title: params.title
-            }
-        }).exec();
+        const { limit, skip, ...rest} = params
+        return this.hotelRoomModel.find(rest, null, { limit, skip }).exec();
     } 
 
     update(id, data) {

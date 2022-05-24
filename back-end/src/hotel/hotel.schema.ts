@@ -9,7 +9,7 @@ export class Hotel {
     _id: ObjectId;
 
     @Prop({ required: true, unique: false })
-    title: ObjectId;
+    title: ObjectId; //???
 
     @Prop({ required: false, unique: false })
     description: string;

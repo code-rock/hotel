@@ -12,21 +12,23 @@ services:
     environment:
       - MONGO_DB_ADDR=mongodb
       - PORT=8080
-    ports:
-      - 8080:8080  
-  nextjs:
-    build: 
-      context: front-end
-      dockerfile: Dockerfile
-    restart: always   
-    ports:
-      - 3000:3000
-    volumes:
-      - ./front-end:/app
-      - /app/node_modules
-      - /app/.next
     env_file:
       - .env
+    ports:
+      - 8080:8080  
+  # nextjs:
+  #   build: 
+  #     context: front-end
+  #     dockerfile: Dockerfile
+  #   restart: always   
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./front-end:/app
+  #     - /app/node_modules
+  #     - /app/.next
+  #   env_file:
+  #     - .env
   mongodb:
     image: mongo:latest
     volumes:

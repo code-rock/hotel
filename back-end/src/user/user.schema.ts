@@ -1,19 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ObjectId } from 'mongoose';
+import { ERole } from './role/role.enum';
 
 export type TUserDocument = User & Document;
 
-export enum ERole { 
-    Client = 'client',
-    Admin = 'admin',
-    Manager = 'manager'
-}
- 
 @Schema()
 export class User {
-    @Prop({ required: true, unique: true })
-    _id: ObjectId;
-
     @Prop({ required: true, unique: true })
     email: string;
 
@@ -26,7 +17,7 @@ export class User {
     @Prop({ required: false, unique: false })
     contactPhone: string;	
 
-    @Prop({ required: true, unique: false, default: ERole.Client, enum: ERole })
+    @Prop({ required: true, unique: false, default: ERole.CLIENT, enum: ERole })
     role: string;
 }
 
