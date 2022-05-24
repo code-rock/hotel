@@ -20,8 +20,6 @@ export class ReservationService implements IReservation {
     }
     
     getReservations(filter) {
-        return this.reservationModel.find().find({}, null, {
-            sort: { filter }
-        }).exec();
+        return this.reservationModel.find(filter, null, {}).exec();
     }
 }
