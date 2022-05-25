@@ -1,6 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { Observable } from "rxjs";
+import { UserNotAuthenticatedException } from "src/errors/user-not-authenticated.exception";
+import { UserRoleNotSuitableException } from "src/errors/user-role-not-suitable.exception";
 import { ROLES_KEY } from "./role.decorator";
 import { ERole } from "./role.enum";
 
@@ -15,9 +17,13 @@ export class RolesGuard implements CanActivate {
         ]);
         console.warn(requeredRoles, 'requeredRoles')
         if (!requeredRoles) return true;
-
+        const result = context.switchToHttp().getRequest();
+        console.log(result, 'result');
         const { user } = context.switchToHttp().getRequest();
-        console.warn(user.role, 'user.role')
-        return requeredRoles.includes(user.role)
+        console.warn(requeredRoles, 'requeredRoles')
+        if (!user) throw new UserNotAuthenticatedException()
+        const isAvailable = requeredRoles.includes(user.role)
+        if (!isAvailable) throw new UserRoleNotSuitableException()
+        return isAvailable
     }
 }

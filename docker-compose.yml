@@ -2,6 +2,7 @@ version: "3.3"
 
 volumes:
   mongodb_volume:
+  back-end:
 
 services:
   nestjs:
@@ -16,6 +17,9 @@ services:
       - .env
     ports:
       - 8080:8080  
+    volumes:
+      - ./back-end:/app
+      - /app/node_modules
   # nextjs:
   #   build: 
   #     context: front-end

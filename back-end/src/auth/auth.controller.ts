@@ -1,4 +1,4 @@
-import { Body, Request, Controller, Post, Redirect, UseGuards, Get, ConsoleLogger } from "@nestjs/common";
+import { Body, Request, Controller, Post, Redirect, UseGuards, Get, ConsoleLogger, Session } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
 import { AuthGuard } from '@nestjs/passport';
 import { AuthenticatedGuard } from "./authenticated.guard";
@@ -7,6 +7,10 @@ import { ERole } from "src/user/role/role.enum";
 import { ILoginForm, IUserInfo } from "./auth.dto";
 import * as bcrypt from 'bcrypt';
 import { EmailBusyException } from "src/errors/email-busy.exception";
+// import { IsNotAuthGuard } from "./auth.guard";
+import { User } from "src/common/user.decorator";
+import { UserGuard } from "src/common/user.guard";
+import { LocalAuthGuard } from "./local.auth.guard";
 
 @Controller('api')
 export class AuthController {
@@ -16,14 +20,26 @@ export class AuthController {
     // Доступно только не аутентифицированным пользователям.
     // @UseGuards(AuthGuard('local'))
     // @Redirect('/401', 401) // 401 - если пользователь с указанным email не существет или пароль неверный
+
+    // @UseGuards(LocalAuthGuard)
+    @UseGuards(LocalAuthGuard)
     @Post('/auth/login/')
-    @UseGuards(AuthGuard('local'))
-    // @UseGuards(Unauthenticated)
-    // @UseGuards(AuthGuard('local'))
-    login(@Body() body): IUserInfo {//@Body() body: ILoginForm): IUserInfo {
-        console.log(body, 'req.user')
-        
-        return body;
+    login(
+        @Request() req,
+        // @Body() body,
+        // @User() user,
+        @Session() session: Record<string, any>
+    )//: IUserInfo {//@Body() body: ILoginForm): IUserInfo {
+    {
+        // console.log( user, 'req.user')
+        return { user: req.user, session }
+        // session.user = user;
+        // return { body, user,session }
+        // return {
+        //     User: req.user,
+        //     msg: 'User logged in',
+        //     session
+        // };
     }
 
     // @UseGuards(AuthenticatedGuard)

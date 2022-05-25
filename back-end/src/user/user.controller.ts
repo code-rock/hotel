@@ -17,8 +17,9 @@ export class UserController {
     // 403 - если роль пользоватьель не admin
     // @Redirect('/401', 401)
     // @Redirect('/403', 403)
-    @Roles(ERole.ADMIN)
-    @UseGuards(RolesGuard)
+    // @Roles(ERole.ADMIN)
+    //@UseGuards(RolesGuard)
+    // @Roles(ERole.CLIENT)
     @Post('/admin/users/')
     async createUser(@Body() body: ICreateUser): Promise<ICreateUserResponse> {
         const salt = 10;
@@ -33,16 +34,11 @@ export class UserController {
                 contactPhone: res.contactPhone,
                 role: res.role,
         }));
-
-        // throw new HttpException({
-        //     status: HttpStatus.FORBIDDEN,
-        //     error: 'Access to this site is forbidden',
-        // }, 403);
     }
 
     // 401 - если пользоватьель не аутентифицирован
     // 403 - если роль пользоватьель не admin
-    @Roles(ERole.ADMIN)
+    // @Roles(ERole.ADMIN)
     @Get('/admin/users/')
     async adminGetUsers(@Query() query: ISearchUserParams): Promise<IUsers[]> {
         return this.userService.findAll(query).then(res => res.map(user => ({
@@ -55,7 +51,7 @@ export class UserController {
 
     // 401 - если пользоватьель не аутентифицирован
     // 403 - если роль пользоватьель не admin
-    @Roles(ERole.MANAGER)
+    // @Roles(ERole.MANAGER)
     @Get('/manager/users/')
     async managerGetUsers(@Query() query: ISearchUserParams): Promise<IUsers[]> {
         return this.userService.findAll(query).then(res => res.map(user => ({

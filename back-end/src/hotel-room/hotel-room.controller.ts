@@ -48,7 +48,7 @@ export class HotelRoomController {
   @UseInterceptors(FilesInterceptor('files'))
   @Post('/admin/hotel-rooms/')
   async addHotelRoom(
-    @UploadedFiles() images: Array<Express.Multer.File>,
+    @UploadedFiles() images: Array<any>,
     @Body() body
   ) {
     //     Данный запрос предполагает загрузку файлов и должен использовать формат `multipart/form-data`.
@@ -80,7 +80,7 @@ export class HotelRoomController {
   @UseInterceptors(FilesInterceptor('files'))
   @Put('/admin/hotel-rooms/:id')
   async changeRoomInfo(
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFiles() files: Array<any>,
     @Param('id') id: string,
     @Body() body) {
     // Данный запрос предполагает загрузку файлов и дожен использовать формат `multipart/form-data`.

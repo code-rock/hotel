@@ -10,4 +10,4 @@ RUN npm install
 # Copying source files
 COPY . /app
 
-CMD "npm" "run" "start"
+CMD "npm" "run" "start:dev"
