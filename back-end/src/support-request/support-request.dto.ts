@@ -44,3 +44,34 @@ export interface ISupportRequestEmployeeService {
     getUnreadCount(supportRequest: ID): Promise<Message[]>;
     closeRequest(supportRequest: ID): Promise<void>;
 }
+
+export interface IRequestForManager {
+    id: string,
+    createdAt: string,
+    isActive: boolean,
+    hasNewMessages: boolean,
+    client: {
+      id: string,
+      name: string,
+      email: string,
+      contactPhone: string
+    }
+}  
+
+export interface ISupportRequest{
+    id: string,
+    createdAt: string,
+    isActive: boolean,
+    hasNewMessages: boolean
+}
+
+export interface ISupportChatHistory{
+    id: string,
+    createdAt: string,
+    text: string,
+    readAt: string,
+    author: {
+      id: string,
+      name: string
+    }
+}
