@@ -9,7 +9,6 @@ import * as bcrypt from 'bcrypt';
 import { EmailBusyException } from "src/errors/email-busy.exception";
 // import { IsNotAuthGuard } from "./auth.guard";
 import { User } from "src/common/user/user.decorator";
-import { UserGuard } from "src/common/user.guard";
 import { LocalAuthGuard } from "./local.auth.guard";
 
 @Controller('api')
