@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
-import { UserGuard } from "src/common/user.guard";
+import { UserGuard } from "../common/user/user.guard";
 import { UserModule } from "src/user/user.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
