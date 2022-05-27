@@ -1,12 +1,10 @@
-import { Body, Controller, Get, Post, Query, Redirect, UseGuards } from "@nestjs/common";
-import { ICreateUser, ICreateUserResponse, ID, ISearchUserParams, IUsers } from "./user.dto";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
+import { ICreateUser, ICreateUserResponse, ISearchUserParams, IUsers } from "./user.dto";
 import { UserService } from "./user.service";
 import * as bcrypt from 'bcrypt';
-import { Roles } from "./role/role.decorator";
-import { ERole } from "./role/role.enum";
-import { ILoginForm } from "src/auth/auth.dto";
-import { EmailBusyException } from "src/errors/email-busy.exception";
-import { RolesGuard } from "./role/role.guard";
+import { Roles } from "../common/role/role.decorator";
+import { ERole } from "../common/role/role.enum";
+import { RolesGuard } from "../common/role/role.guard";
 
 @Controller('api')
 export class UserController {
@@ -17,9 +15,8 @@ export class UserController {
     // 403 - если роль пользоватьель не admin
     // @Redirect('/401', 401)
     // @Redirect('/403', 403)
-    // @Roles(ERole.ADMIN)
-    //@UseGuards(RolesGuard)
-    // @Roles(ERole.CLIENT)
+    @Roles(ERole.ADMIN)
+    @UseGuards(RolesGuard)
     @Post('/admin/users/')
     async createUser(@Body() body: ICreateUser): Promise<ICreateUserResponse> {
         const salt = 10;
@@ -38,7 +35,8 @@ export class UserController {
 
     // 401 - если пользоватьель не аутентифицирован
     // 403 - если роль пользоватьель не admin
-    // @Roles(ERole.ADMIN)
+    @Roles(ERole.ADMIN)
+    @UseGuards(RolesGuard)
     @Get('/admin/users/')
     async adminGetUsers(@Query() query: ISearchUserParams): Promise<IUsers[]> {
         return this.userService.findAll(query).then(res => res.map(user => ({
@@ -51,7 +49,8 @@ export class UserController {
 
     // 401 - если пользоватьель не аутентифицирован
     // 403 - если роль пользоватьель не admin
-    // @Roles(ERole.MANAGER)
+    @Roles(ERole.MANAGER)
+    @UseGuards(RolesGuard)
     @Get('/manager/users/')
     async managerGetUsers(@Query() query: ISearchUserParams): Promise<IUsers[]> {
         return this.userService.findAll(query).then(res => res.map(user => ({

@@ -2,13 +2,13 @@ import { Body, Request, Controller, Post, Redirect, UseGuards, Get, ConsoleLogge
 import { UserService } from "src/user/user.service";
 import { AuthGuard } from '@nestjs/passport';
 import { AuthenticatedGuard } from "./authenticated.guard";
-import { Roles } from "src/user/role/role.decorator";
-import { ERole } from "src/user/role/role.enum";
+import { Roles } from "src/common/role/role.decorator";
+import { ERole } from "src/common/role/role.enum";
 import { ILoginForm, IUserInfo } from "./auth.dto";
 import * as bcrypt from 'bcrypt';
 import { EmailBusyException } from "src/errors/email-busy.exception";
 // import { IsNotAuthGuard } from "./auth.guard";
-import { User } from "src/common/user.decorator";
+import { User } from "src/common/user/user.decorator";
 import { UserGuard } from "src/common/user.guard";
 import { LocalAuthGuard } from "./local.auth.guard";
 

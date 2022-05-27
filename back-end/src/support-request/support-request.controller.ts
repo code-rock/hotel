@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query, UseGuards, Request, Param } from "@nestjs/common";
-import { Roles } from "src/user/role/role.decorator";
-import { ERole } from "src/user/role/role.enum";
-import { RolesGuard } from "src/user/role/role.guard";
+import { Roles } from "src/common/role/role.decorator";
+import { ERole } from "src/common/role/role.enum";
+import { RolesGuard } from "src/common/role/role.guard";
 import { text } from "stream/consumers";
 import { SupportRequestClientService } from "./support-request-client.service";
 import { SupportRequestService } from "./support-request.service";

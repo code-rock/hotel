@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { Roles } from 'src/user/role/role.decorator';
-import { ERole } from 'src/user/role/role.enum';
-import { RolesGuard } from 'src/user/role/role.guard';
+import { Roles } from 'src/common/role/role.decorator';
+import { ERole } from 'src/common/role/role.enum';
+import { RolesGuard } from 'src/common/role/role.guard';
 import { HotelService } from './hotel.service';
 
 @Controller('api')

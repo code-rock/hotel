@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post, Put, Query, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FilesInterceptor } from "@nestjs/platform-express/multer";
-import { Roles } from "src/user/role/role.decorator";
-import { ERole } from "src/user/role/role.enum";
-import { RolesGuard } from "src/user/role/role.guard";
+import { Roles } from "src/common/role/role.decorator";
+import { ERole } from "src/common/role/role.enum";
+import { RolesGuard } from "src/common/role/role.guard";
 import { IHotelRoom } from "./hotel-room.dto";
 import { HotelRoomService } from "./hotel-room.service";
 
