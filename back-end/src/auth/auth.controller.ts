@@ -3,7 +3,11 @@ import { UserService } from "src/user/user.service";
 import { ERole } from "src/common/role/role.enum";
 import * as bcrypt from 'bcrypt';
 import { EmailBusyException } from "src/errors/email-busy.exception";
-import { LocalAuthGuard } from "./local.auth.guard";
+import { User } from "src/common/user/user.decorator";
+import { NotAuthenticatedGuard } from "./not-authenticated.guard";
+import { AuthGuard } from "@nestjs/passport";
+import { session } from "passport";
+import { IUserInfo } from "./auth.dto";
 
 @Controller('api')
 export class AuthController {
@@ -11,28 +15,21 @@ export class AuthController {
 
     // Добавить проверку
     // Доступно только не аутентифицированным пользователям.
-    // @UseGuards(AuthGuard('local'))
     // @Redirect('/401', 401) // 401 - если пользователь с указанным email не существет или пароль неверный
-
-    // @UseGuards(LocalAuthGuard)
-    @UseGuards(LocalAuthGuard)
-    @Post('/auth/login/')
+    @UseGuards(AuthGuard('local'))
+    @Post('auth/login')
     login(
-        @Request() req,
-        // @Body() body,
-        // @User() user,
-        @Session() session: Record<string, any>
-    )//: IUserInfo {//@Body() body: ILoginForm): IUserInfo {
-    {
-        // console.log( user, 'req.user')
-        return { user: req.user, session }
-        // session.user = user;
-        // return { body, user,session }
-        // return {
-        //     User: req.user,
-        //     msg: 'User logged in',
-        //     session
-        // };
+        @User() user,
+        @Session() session
+    ): IUserInfo {
+        const { passwordHash, ...rest } = user._doc;
+        session.user = rest;
+
+        return {
+            email: user._doc.email,
+            name: user._doc.name,
+            contactPhone: user._doc.contactPhone
+        }
     }
 
     // @UseGuards(AuthenticatedGuard)

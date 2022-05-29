@@ -7,10 +7,14 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
     constructor(private readonly authService: AuthService) {
-        super()
+        super({
+            usernameField: 'email',
+            passwordField: 'password',
+          })
     }
 
-    async validate({ email, password }: ILoginForm): Promise<any> {
+    async validate(email, password): Promise<any> {
+        console.warn(email, password, 'email, password')
         const user = await this.authService.validateUser({ email, password });
         if (!user) {
             throw new UnauthorizedException();

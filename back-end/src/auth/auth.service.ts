@@ -9,12 +9,29 @@ import { IncorrectPasswordException } from "src/errors/incorrect-password.except
 export class AuthService {
   constructor(private userService: UserService) {}
 
+  // async validateUser(email: string, password: string): Promise<any> {
+  //   const user = await this.userService.findByEmail(email);
+  //   const passwordValid = await bcrypt.compare(password, user.passwordHash);
+  //   if (user && passwordValid) {
+  //     const { passwordHash, ...result } = user;
+  //     return result;
+  //   }
+  //   return null;
+  // }
   async validateUser({ email, password }: ILoginForm): Promise<any> {
     const user = await this.userService.findByEmail(email);
-    if (!user) throw new UserNotFoundException();
     const passwordValid = await bcrypt.compare(password, user.passwordHash);
-    if (!passwordValid) throw new IncorrectPasswordException();
-    const { passwordHash, ...result } = user;
-    return result
+    console.log(passwordValid, 'passwordValid')
+    if (user && passwordValid) {
+      const { passwordHash, ...result } = user;
+      return result;
+    }
+    return null;
+    // const user = await this.userService.findByEmail(email);
+    // if (!user) null; //throw new UserNotFoundException();
+    // const passwordValid = await bcrypt.compare(password, user.passwordHash);
+    // if (!passwordValid) null;// throw new IncorrectPasswordException();
+    // const { passwordHash, ...result } = user;
+    // return result
   }
 }

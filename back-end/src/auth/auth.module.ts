@@ -4,7 +4,6 @@ import { UserGuard } from "../common/user/user.guard";
 import { UserModule } from "src/user/user.module";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
-import { LocalAuthGuard } from "./local.auth.guard";
 import { LocalStrategy } from "./local.strategy";
 import { SessionSerializer } from "./session.serializer";
 
@@ -12,11 +11,12 @@ import { SessionSerializer } from "./session.serializer";
     imports: [UserModule, PassportModule.register({ session: true })],
     controllers: [AuthController],
     providers: [
-        AuthService, 
+        AuthService,    
         LocalStrategy, 
         SessionSerializer, 
         UserGuard,
-        LocalAuthGuard
+        // NotAuthenticatedGuard,
+        
     ],
 })
 export class AuthModule {}

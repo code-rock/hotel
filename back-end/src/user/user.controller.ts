@@ -15,8 +15,8 @@ export class UserController {
     // 403 - если роль пользоватьель не admin
     // @Redirect('/401', 401)
     // @Redirect('/403', 403)
-    @Roles(ERole.ADMIN)
-    @UseGuards(RolesGuard)
+    // @Roles(ERole.ADMIN)
+    // @UseGuards(RolesGuard)
     @Post('/admin/users/')
     async createUser(@Body() body: ICreateUser): Promise<ICreateUserResponse> {
         const salt = 10;
