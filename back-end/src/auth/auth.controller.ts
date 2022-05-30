@@ -37,8 +37,7 @@ export class AuthController {
         req.session.destroy();
     }
 
-
-    //Доступно только не аутентифицированным пользователям.
+    @UseGuards(NotAuthenticatedGuard)
     @Post('/client/register/')
     async singup(@Body() body: { email: string; password: string; name: string; contactPhone: string }): Promise<{ id: string; email: string; name: string }>{
         const { password, ...rest } = body;
