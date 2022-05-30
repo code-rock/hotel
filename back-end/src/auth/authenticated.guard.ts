@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { UserAlreadyLogginedInException } from "src/errors/user-already-logged-in.exception";
 import { UserNotAuthenticatedException } from "src/errors/user-not-authenticated.exception";
 
 @Injectable()

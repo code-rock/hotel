@@ -1,4 +1,4 @@
-import { Body, Request, Controller, Post, Redirect, UseGuards, Get, ConsoleLogger, Session } from "@nestjs/common";
+import { Body, Controller, Post, UseGuards, Session } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
 import { ERole } from "src/common/role/role.enum";
 import * as bcrypt from 'bcrypt';
@@ -6,8 +6,7 @@ import { EmailBusyException } from "src/errors/email-busy.exception";
 import { User } from "src/common/user/user.decorator";
 import { NotAuthenticatedGuard } from "./not-authenticated.guard";
 import { AuthGuard } from "@nestjs/passport";
-import { session } from "passport";
-import { IUserInfo } from "./auth.dto";
+import { ILoginForm, IUserInfo, IUserShortInfo } from "./auth.dto";
 import { AuthenticatedGuard } from "./authenticated.guard";
 
 @Controller('api')
@@ -33,13 +32,13 @@ export class AuthController {
 
     @UseGuards(AuthenticatedGuard)
     @Post('auth/logout')
-    logout(@Request() req): any {
-        req.session.destroy();
+    logout( @Session() session): void {
+        session.destroy();
     }
 
     @UseGuards(NotAuthenticatedGuard)
     @Post('/client/register/')
-    async singup(@Body() body: { email: string; password: string; name: string; contactPhone: string }): Promise<{ id: string; email: string; name: string }>{
+    async singup(@Body() body: IUserInfo & ILoginForm): Promise<IUserShortInfo>{
         const { password, ...rest } = body;
         const salt = 10;
         const hash = bcrypt.hashSync(password, salt);

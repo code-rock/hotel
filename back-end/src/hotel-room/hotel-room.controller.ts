@@ -10,7 +10,7 @@ import { HotelRoomService } from "./hotel-room.service";
 export class HotelRoomController {
   constructor(private readonly hotelRoomService: HotelRoomService) {}
 
-  @Get('/common/hotel-rooms/')
+  @Get('common/hotel-rooms')
   async searchHouseRoom(
     @Query('limit') limit: number,
     @Query('offset') skip: number,

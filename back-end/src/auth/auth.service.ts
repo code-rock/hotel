@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
 import { ILoginForm } from "./auth.dto";
 import * as bcrypt from 'bcrypt';
-import { UserNotFoundException } from "src/errors/user-not-found.exception";
 import { IncorrectPasswordException } from "src/errors/incorrect-password.exception";
 import { NotUserWithEmailException } from "src/errors/not-user-with-email.exception";
 

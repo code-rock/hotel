@@ -8,3 +8,9 @@ export interface IUserInfo {
     name: string;
     contactPhone: string;
 }
+
+export interface IUserShortInfo {
+    id: string;
+    email: string;
+    name: string;
+}
