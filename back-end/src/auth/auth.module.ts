@@ -6,6 +6,7 @@ import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { LocalStrategy } from "./local.strategy";
 import { SessionSerializer } from "./session.serializer";
+import { NotAuthenticatedGuard } from "./not-authenticated.guard";
 
 @Module({
     imports: [UserModule, PassportModule.register({ session: true })],
@@ -15,7 +16,7 @@ import { SessionSerializer } from "./session.serializer";
         LocalStrategy, 
         SessionSerializer, 
         UserGuard,
-        // NotAuthenticatedGuard,
+        NotAuthenticatedGuard,
         
     ],
 })

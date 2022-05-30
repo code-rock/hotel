@@ -13,9 +13,7 @@ import { IUserInfo } from "./auth.dto";
 export class AuthController {
     constructor(private userService: UserService) { }
 
-    // Добавить проверку
-    // Доступно только не аутентифицированным пользователям.
-    // @Redirect('/401', 401) // 401 - если пользователь с указанным email не существет или пароль неверный
+    @UseGuards(NotAuthenticatedGuard)
     @UseGuards(AuthGuard('local'))
     @Post('auth/login')
     login(
@@ -31,12 +29,6 @@ export class AuthController {
             contactPhone: user._doc.contactPhone
         }
     }
-
-    // @UseGuards(AuthenticatedGuard)
-    // @Get('/protected')
-    // getHello(@Request() req): string {
-    //     return req.user
-    // }
     
     @Get('/auth/logout/')
     logout(@Request() req): any {
