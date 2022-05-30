@@ -8,6 +8,7 @@ import { NotAuthenticatedGuard } from "./not-authenticated.guard";
 import { AuthGuard } from "@nestjs/passport";
 import { session } from "passport";
 import { IUserInfo } from "./auth.dto";
+import { AuthenticatedGuard } from "./authenticated.guard";
 
 @Controller('api')
 export class AuthController {
@@ -29,11 +30,11 @@ export class AuthController {
             contactPhone: user._doc.contactPhone
         }
     }
-    
-    @Get('/auth/logout/')
+
+    @UseGuards(AuthenticatedGuard)
+    @Post('auth/logout')
     logout(@Request() req): any {
         req.session.destroy();
-        return { msg: 'The user session has ended' }
     }
 
 
