@@ -10,13 +10,8 @@ import { RolesGuard } from "../common/role/role.guard";
 export class UserController {
     constructor(private userService: UserService) { }
     
-    // Обработать ошибки
-    // 401 - если пользоватьель не аутентифицирован
-    // 403 - если роль пользоватьель не admin
-    // @Redirect('/401', 401)
-    // @Redirect('/403', 403)
-    // @Roles(ERole.ADMIN)
-    // @UseGuards(RolesGuard)
+    @Roles(ERole.ADMIN)
+    @UseGuards(RolesGuard)
     @Post('/admin/users/')
     async createUser(@Body() body: ICreateUser): Promise<ICreateUserResponse> {
         const salt = 10;
@@ -33,8 +28,6 @@ export class UserController {
         }));
     }
 
-    // 401 - если пользоватьель не аутентифицирован
-    // 403 - если роль пользоватьель не admin
     @Roles(ERole.ADMIN)
     @UseGuards(RolesGuard)
     @Get('/admin/users/')
@@ -47,8 +40,6 @@ export class UserController {
         })))
     }
 
-    // 401 - если пользоватьель не аутентифицирован
-    // 403 - если роль пользоватьель не admin
     @Roles(ERole.MANAGER)
     @UseGuards(RolesGuard)
     @Get('/manager/users/')
