@@ -11,12 +11,12 @@ export class HotelRoomService implements HotelRoomService {
         const createdRoom = new this.hotelRoomModel(data);
         return createdRoom.save();
     }
-    
+
     findById(id, isEnabled = true) {
         return isEnabled ? this.hotelRoomModel.findById(id).exec() : undefined
     }
 
-    search(props, params) {
+    search(props, params = {}) {
         return this.hotelRoomModel.find({ ...props, isEnabled: true }, null, params).exec();
     } 
 
