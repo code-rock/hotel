@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ObjectId } from 'mongoose';
+
 export type THotelDocument = Hotel & Document;
 	
 @Schema()

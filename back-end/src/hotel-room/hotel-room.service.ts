@@ -12,16 +12,12 @@ export class HotelRoomService implements HotelRoomService {
         return createdRoom.save();
     }
     
-    // В методах findById и search флаг isEnabled может принимать только значения:
-    // true - флаг должен использоваться в фильтрации,
-    // undefined - флаг должен игнорироваться
-    findById(id, isEnabled) {
+    findById(id, isEnabled = true) {
         return isEnabled ? this.hotelRoomModel.findById(id).exec() : undefined
     }
 
-    search(params) {
-        const { limit, skip, ...rest} = params
-        return this.hotelRoomModel.find(rest, null, { limit, skip }).exec();
+    search(props, params) {
+        return this.hotelRoomModel.find({ ...props, isEnabled: true }, null, params).exec();
     } 
 
     update(id, data) {

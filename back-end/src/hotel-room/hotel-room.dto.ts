@@ -12,8 +12,7 @@ export interface IHotelRoomShort {
 
 export interface IHotelRoom {
     id: string,
-    title: string,
     description: string,
-    images: [string],
-    hotel: IHotel
+    images: string[],
+    hotel: IHotel,
 }
