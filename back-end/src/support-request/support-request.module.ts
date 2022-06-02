@@ -7,6 +7,7 @@ import { SupportRequestGateway } from "./support-request.gateway";
 import { SupportRequest, SupportRequestSchema } from "./schemes/support-request.schema";
 import { SupportRequestService } from "./services/support-request.service";
 import { Message, MessageSchema } from "./schemes/message.schema";
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { Message, MessageSchema } from "./schemes/message.schema";
             { name: SupportRequest.name, schema: SupportRequestSchema },
             { name: Message.name, schema: MessageSchema }
         ]),
+        EventEmitterModule.forRoot()
     ],
     controllers: [],
     providers: [

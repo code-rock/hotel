@@ -26,6 +26,22 @@ export class SupportRequestController {
         await this.supportRequestService.sendMessage({ author, supportRequest: request._id.toHexString(), text})
     }
 
+    @Roles(ERole.CLIENT)
+    @UseGuards(RolesGuard)
+    @Get('/client/support-requests/')
+    async getSupportRequestsForClient(
+        @Query('limit') limit: number,
+        @Query('offset') skip: number,
+        @Query('isActive') isActive: boolean,
+    )//: Promise<IRequestForManager> 
+    {
+        return this.supportRequestService.findSupportRequests({ 
+            isActive,
+            limit,
+            skip
+        })
+    }
+
     // 401 - если пользоватьель не аутентифицирован
     // 403 - если роль пользователя не подходит
     @Roles(ERole.MANAGER)
