@@ -6,11 +6,8 @@ export type TSupportRequestDocument = SupportRequest & Document;
 
 @Schema()
 export class SupportRequest {
-    @Prop({ required: true, unique: true })
-    _id: ObjectId;
-
     @Prop({ required: true, unique: false })
-    user: ObjectId;
+    user:[{ type: ObjectId, ref: 'User' }]
 
     @Prop({ required: true, unique: false })
     createdAt: Date;

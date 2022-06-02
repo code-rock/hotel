@@ -1,6 +1,6 @@
 import { ID } from "src/user/user.dto";
-import { Message } from "./message.schema";
-import { SupportRequest } from "./support-request.schema";
+import { Message } from "./schemes/message.schema";
+import { SupportRequest } from "./schemes/support-request.schema";
 
 export interface CreateSupportRequestDto {
     user: ID;

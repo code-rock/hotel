@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { HotelRoomModule } from './hotel-room/hotel-room.module';
 import { HotelModule } from './hotel/hotel.module';
 import { ReservationModule } from './reservation/reservation.module';
+import { SupportRequestModule } from './support-request/support-request.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -19,7 +20,8 @@ import { UserModule } from './user/user.module';
     AuthModule,
     HotelModule,
     HotelRoomModule,
-    ReservationModule
+    ReservationModule,
+    SupportRequestModule 
   ],
   controllers: [AppController],
   providers: [AppService],
