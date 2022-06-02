@@ -1,5 +1,5 @@
 import { ObjectId } from "mongoose";
-import { ERole } from "./role/role.enum";
+import { ERole } from "../common/role/role.enum";
 import { User } from "./user.schema";
 
 export type ID = string | ObjectId;

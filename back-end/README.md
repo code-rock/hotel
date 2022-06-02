@@ -71,3 +71,17 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+Тестовая админская учетка
+login: sunny-funny@mail.ru
+password: 1q2w3e4r5t
+
+Гостишка
+  {
+    "title": "Флорида",
+    "description": "Чудесная гостишка на берегу моря, с парками и грилем",
+    "createdAt": "2022-05-30T11:17:31.646Z",
+    "updatedAt": "2022-05-30T11:17:31.646Z",
+    "_id": "6294a7cbee8c9ffa3738d775",
+    "__v": 0
+  }

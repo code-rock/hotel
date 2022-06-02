@@ -22,3 +22,17 @@ export interface IReservation {
         filter: ReservationSearchOptions
     ): Promise<Array<Reservation>>;
 }
+
+export interface IReservationInfo {
+    startDate: string;
+    endDate: string;
+    hotelRoom: {
+        title: string;
+        description: string;
+        images: string[];
+    };
+    hotel: {
+        title?: string;
+        description: string;
+    }
+}

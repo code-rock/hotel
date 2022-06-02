@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
+import { HttpException } from "@nestjs/common";
 
 export class EmailBusyException extends HttpException {
     constructor() {
-      super('Email уже занят', HttpStatus.BAD_REQUEST);
+      super('Email уже занят', 400);
     }
   }
   

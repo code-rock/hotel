@@ -1,47 +1,44 @@
-import { Body, Request, Controller, Post, Redirect, UseGuards, Get, ConsoleLogger } from "@nestjs/common";
+import { Body, Controller, Post, UseGuards, Session } from "@nestjs/common";
 import { UserService } from "src/user/user.service";
-import { AuthGuard } from '@nestjs/passport';
-import { AuthenticatedGuard } from "./authenticated.guard";
-import { Roles } from "src/user/role/role.decorator";
-import { ERole } from "src/user/role/role.enum";
-import { ILoginForm, IUserInfo } from "./auth.dto";
+import { ERole } from "src/common/role/role.enum";
 import * as bcrypt from 'bcrypt';
 import { EmailBusyException } from "src/errors/email-busy.exception";
+import { User } from "src/common/user/user.decorator";
+import { NotAuthenticatedGuard } from "./not-authenticated.guard";
+import { AuthGuard } from "@nestjs/passport";
+import { ILoginForm, IUserInfo, IUserShortInfo } from "./auth.dto";
+import { AuthenticatedGuard } from "./authenticated.guard";
 
 @Controller('api')
 export class AuthController {
     constructor(private userService: UserService) { }
 
-    // Добавить проверку
-    // Доступно только не аутентифицированным пользователям.
-    // @UseGuards(AuthGuard('local'))
-    // @Redirect('/401', 401) // 401 - если пользователь с указанным email не существет или пароль неверный
-    @Post('/auth/login/')
+    @UseGuards(NotAuthenticatedGuard)
     @UseGuards(AuthGuard('local'))
-    // @UseGuards(Unauthenticated)
-    // @UseGuards(AuthGuard('local'))
-    login(@Body() body): IUserInfo {//@Body() body: ILoginForm): IUserInfo {
-        console.log(body, 'req.user')
-        
-        return body;
+    @Post('auth/login')
+    login(
+        @User() user,
+        @Session() session
+    ): IUserInfo {
+        const { passwordHash, ...rest } = user._doc;
+        session.user = rest;
+
+        return {
+            email: user._doc.email,
+            name: user._doc.name,
+            contactPhone: user._doc.contactPhone
+        }
     }
 
-    // @UseGuards(AuthenticatedGuard)
-    // @Get('/protected')
-    // getHello(@Request() req): string {
-    //     return req.user
-    // }
-    
-    @Get('/auth/logout/')
-    logout(@Request() req): any {
-        req.session.destroy();
-        return { msg: 'The user session has ended' }
+    @UseGuards(AuthenticatedGuard)
+    @Post('auth/logout')
+    logout( @Session() session): void {
+        session.destroy();
     }
 
-
-    //Доступно только не аутентифицированным пользователям.
+    @UseGuards(NotAuthenticatedGuard)
     @Post('/client/register/')
-    async singup(@Body() body: { email: string; password: string; name: string; contactPhone: string }): Promise<{ id: string; email: string; name: string }>{
+    async singup(@Body() body: IUserInfo & ILoginForm): Promise<IUserShortInfo>{
         const { password, ...rest } = body;
         const salt = 10;
         const hash = bcrypt.hashSync(password, salt);

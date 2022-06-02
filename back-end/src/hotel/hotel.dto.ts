@@ -21,3 +21,9 @@ export interface IHotelRoomService {
     search(params: SearchRoomsParams): Promise<HotelRoom[]>;
     update(id: ID, data: Partial<HotelRoom>): Promise<HotelRoom>;
 }
+
+export interface IHotel {
+    id: string,
+    title: string,
+    description: string
+}

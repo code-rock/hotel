@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
-import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,10 +8,10 @@ async function bootstrap() {
     secret: process.env.SECRET_SESSION_KEY,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 24*60*60*1000 // время жизни сессии
+    }
   }))
-  app.use(passport.initialize())
-  app.use(passport.session())
-
   await app.listen(process.env.PORT);
 }
 bootstrap();

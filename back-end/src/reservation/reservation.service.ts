@@ -4,6 +4,9 @@ import { Model } from "mongoose";
 import { IReservation } from "./reservation.dto";
 import { Reservation, TReservationDocument } from "./reservation.schema";
 
+//В методах findById и search флаг isEnabled может принимать только значения:
+// true - флаг должен использоваться в фильтрации,
+// undefined - флаг должен игнорироваться.
 @Injectable()
 export class ReservationService implements IReservation {
     constructor(@InjectModel(Reservation.name) private reservationModel: Model<TReservationDocument>) {}
@@ -20,8 +23,6 @@ export class ReservationService implements IReservation {
     }
     
     getReservations(filter) {
-        return this.reservationModel.find().find({}, null, {
-            sort: { filter }
-        }).exec();
+        return this.reservationModel.find(filter, null, {}).exec();
     }
 }

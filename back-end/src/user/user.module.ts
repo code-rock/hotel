@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { RolesGuard } from "./role/role.guard";
+import { RolesGuard } from "../common/role/role.guard";
 import { UserController } from "./user.controller";
 import { User, UserSchema } from "./user.schema";
 import { UserService } from "./user.service";

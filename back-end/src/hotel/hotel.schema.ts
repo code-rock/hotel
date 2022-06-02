@@ -5,11 +5,8 @@ export type THotelDocument = Hotel & Document;
 	
 @Schema()
 export class Hotel {
-    @Prop({ required: true, unique: true })
-    _id: ObjectId;
-
     @Prop({ required: true, unique: false })
-    title: ObjectId; //???
+    title: string;
 
     @Prop({ required: false, unique: false })
     description: string;

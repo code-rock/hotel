@@ -1,6 +1,6 @@
 import { ID } from "src/user/user.dto";
-import { Message } from "./message.schema";
-import { SupportRequest } from "./support-request.schema";
+import { Message } from "./schemes/message.schema";
+import { SupportRequest } from "./schemes/support-request.schema";
 
 export interface CreateSupportRequestDto {
     user: ID;
@@ -43,4 +43,35 @@ export interface ISupportRequestEmployeeService {
     markMessagesAsRead(params: MarkMessagesAsReadDto);
     getUnreadCount(supportRequest: ID): Promise<Message[]>;
     closeRequest(supportRequest: ID): Promise<void>;
+}
+
+export interface IRequestForManager {
+    id: string,
+    createdAt: string,
+    isActive: boolean,
+    hasNewMessages: boolean,
+    client: {
+      id: string,
+      name: string,
+      email: string,
+      contactPhone: string
+    }
+}  
+
+export interface ISupportRequest{
+    id: string,
+    createdAt: string,
+    isActive: boolean,
+    hasNewMessages: boolean
+}
+
+export interface ISupportChatHistory{
+    id: string,
+    createdAt: string,
+    text: string,
+    readAt: string,
+    author: {
+      id: string,
+      name: string
+    }
 }

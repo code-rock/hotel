@@ -5,17 +5,14 @@ export type TReservationDocument = Reservation & Document;
 
 @Schema()
 export class Reservation {
-    @Prop({ required: true, unique: true })
-    _id: ObjectId;
+    @Prop({ required: true, unique: false })
+    userId: [{ type: ObjectId, ref: 'User' }]
 
     @Prop({ required: true, unique: false })
-    userId: ObjectId;
+    hotelId: [{ type: ObjectId, ref: 'Hotel' }]
 
     @Prop({ required: true, unique: false })
-    hotelId: ObjectId;
-
-    @Prop({ required: true, unique: false })
-    roomId: ObjectId;
+    roomId: [{ type: ObjectId, ref: 'HotelRoom' }]
 
     @Prop({ required: true, unique: false })
     dateStart: Date;	

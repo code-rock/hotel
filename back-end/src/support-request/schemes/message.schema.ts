@@ -5,11 +5,8 @@ export type TMessageDocument = Message & Document;
 
 @Schema()
 export class Message {
-    @Prop({ required: true, unique: true })
-    _id: ObjectId;
-
     @Prop({ required: true, unique: false })
-    author: ObjectId;
+    author: [{ type: ObjectId, ref: 'User' }]
 
     @Prop({ required: true, unique: false })
     sentAt: Date;
