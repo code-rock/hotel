@@ -1,28 +1,27 @@
-import { Session } from "@nestjs/common";
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { SupportRequestClientService } from "./services/support-request-client.service";
 import { SupportRequestService } from "./services/support-request.service";
-// import { Server, Socket } from "socket.io";
-// import { SupportRequestClientService } from "./support-request-client.service";
-// import { SupportRequestService } from "./support-request.service";
 
 
-@WebSocketGateway(4001)
+@WebSocketGateway(8081, { cors: true })//, { transports: ['websocket'] }
 export class SupportRequestGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
-    wws;
+    wss;
 
     constructor(
         private supportRequestService: SupportRequestService,
         private supportRequestClentService: SupportRequestClientService
-    ) {}
+    ) {
+        console.log(' SupportRequestGateway')
+    }
 
     handleDisconnect(client: any) {
         console.log(client, 'Disconnect');
     }
 
     handleConnection(client: any, ...args: any[]) {
-        console.log(client, ...args, 'Connect');
+        //console.log(client, ...args, 'Connect');
+        client.emit('connection', 'Sucssecfully connection to server');
     }
     afterInit(server: any) {
         console.log(server, 'AfterInit');

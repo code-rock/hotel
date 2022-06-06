@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Обращение в поддержку</h2>
+    <form method="POST" id="socket">
+        <input name="message" />
+        <button type="submit">Отправить</button>
+    </form>
+    <div id="chat">
+
+    </div>
+    <script type="module">
+        import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
+
+        const socket = io('http://localhost:8081',  {
+            origin: "http://localhost:8081",
+            methods: ["GET", "POST"]
+        })
+        socket.on('connection', date => console.log(date, 'date socket conection'))
+        socket.on("connect_error", (err) => {
+            console.log(`connect_error due to ${err.message}`);
+        });
+    </script>
+
+</body>
+</html>

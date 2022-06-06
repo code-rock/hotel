@@ -4,6 +4,8 @@ import * as session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
+  app.use(require('cors')())
   app.use(session({
     secret: process.env.SECRET_SESSION_KEY,
     resave: false,
